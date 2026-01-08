@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User List</title>
+</head>
+<body>
+
+<h2>Neo Users</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+			<th>Password</th>
+            <th>Role</th>
+            <th>Status</th>
+			<th>created_at</th>
+			<th>updated_at</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+			<td th:text="${user.password}"></td>
+            <td th:text="${user.role}"></td>
+            <td th:text="${user.status}"></td>
+			<td th:text="${user.createdAt}"></td>
+			<td th:text="${user.updatedAt}"></td>
+        </tr>
+    </tbody>
+</table>
+
+<div th:if="${success}" style="color:green; margin-bottom:10px;">
+        <p th:text="${success}"></p>
+    </div>
+
+</body>
+</html>
