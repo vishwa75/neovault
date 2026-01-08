@@ -23,7 +23,7 @@ public class NeoUserController {
 	public String userLoginpage(Model model) {
 		List<NeoUserModel> users = neoUserService.getAllUsers();
 		model.addAttribute("users",users);
-		return "neo-user-login";
+		return "auth/neo-user-login";
 	}
 	
 	@GetMapping("/register")
@@ -36,7 +36,6 @@ public class NeoUserController {
 	@PostMapping("/register")
 	public String registerUser(NeoUserModel neoUserModel,Model model) {
 		UtlityModel result = neoUserService.addUser(neoUserModel);
-		System.out.println("$$$$$$$$$$$$"+result.getStatus());
 		if (result.getStatus() == Constants.SUCCESS_STATUS) {
 			List<NeoUserModel> users = neoUserService.getAllUsers();
 			model.addAttribute("users",users);
