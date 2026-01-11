@@ -41,18 +41,6 @@ public class NeoUserRepository {
         return jdbcTemplate.query(sql, getRowMapper());
     }
     
-    public NeoUserModel findByUsername(String username) {
-
-        String sql = "SELECT * FROM neo_users WHERE username = ?";
-
-        try {
-            return jdbcTemplate.queryForObject(sql,getRowMapper(),username);
-        } catch (Exception e) {
-            return null; // user not found
-        }
-    }
-
-    
     public UtlityModel InsertRecord(NeoUserModel neoUserModel) {
     	int rtValue = 0;
     	UtlityModel utlityModel = new UtlityModel();

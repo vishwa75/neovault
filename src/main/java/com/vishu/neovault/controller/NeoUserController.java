@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.vishu.neovault.model.NeoUserModel;
@@ -22,21 +21,9 @@ public class NeoUserController {
 		
 	@GetMapping("/")
 	public String userLoginpage(Model model) {
-		model.addAttribute("neoUserModel",new NeoUserModel());
-		return "auth/neo-user-login";
-	}
-	
-	@PostMapping("/login")
-	public String doLogin(@ModelAttribute NeoUserModel neoUserModel,Model model) {
-
-        boolean isValid = neoUserService.validateUser(
-        		neoUserModel.getUsername(),
-        		neoUserModel.getPassword());
-        if (isValid) {
-            return "dashboard";
-        }
-        model.addAttribute("error", "Invalid username or password");
-        return "auth/neo-user-login";
+		List<NeoUserModel> users = neoUserService.getAllUsers();
+		model.addAttribute("users",users);
+		return "neo-user-login";
 	}
 	
 	@GetMapping("/register")
@@ -49,6 +36,7 @@ public class NeoUserController {
 	@PostMapping("/register")
 	public String registerUser(NeoUserModel neoUserModel,Model model) {
 		UtlityModel result = neoUserService.addUser(neoUserModel);
+		System.out.println("$$$$$$$$$$$$"+result.getStatus());
 		if (result.getStatus() == Constants.SUCCESS_STATUS) {
 			List<NeoUserModel> users = neoUserService.getAllUsers();
 			model.addAttribute("users",users);

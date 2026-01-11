@@ -23,17 +23,5 @@ public class NeoUserService {
 	  public UtlityModel addUser(NeoUserModel neoUserModel) {
 		    return neoUserRepository.InsertRecord(neoUserModel);
 		}
-
-	  public boolean validateUser(String username, String password) {
-
-	        NeoUserModel user = neoUserRepository.findByUsername(username);
-
-	        if (user == null) {
-	            return false;
-	        }
-
-	        // TEMP (plain text comparison)
-	        return user.getPassword().equals(password);
-	    }
 	
 }
